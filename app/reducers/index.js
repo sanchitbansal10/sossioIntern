@@ -2,6 +2,8 @@ import _ from 'lodash'
 import { ADD_NOTES, UPDATE_NOTE, DELETE_NOTE } from '../actions'
 
 const initialState = [
+  {id:0,title:'no. 1',desc:'descriptions of number 1'},
+  {id:1,title:'no. 1',desc:'descriptions of number 1'}
 ]
 
 export default (state = initialState, action) => {

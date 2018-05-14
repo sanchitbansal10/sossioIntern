@@ -1,26 +1,39 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { createStackNavigator } from 'react-navigation';
+import { createStore } from 'redux'
+import rootReducer from './app/reducers'
+import Main from './app/components/Main'
+import SingleNote from './app/components/SingleNote'
+import NewNote from './app/components/NewNote'
+import { Provider } from 'react-redux'
 
+
+var preloadedState = 
+  [
+    {id:0,title:'no. 1',desc:'descriptions of number 1'},
+    {id:1,title:'no. 1',desc:'descriptions of number 1'}
+  ]
+const store = createStore(rootReducer, preloadedState)
 
 
 
 export default class App extends React.Component {
   render() {
-    const myIcon = (<Icon style={styles.button} name="plus-circle" size={100} color="#900" />)
     return (
-   
-        <View style={styles.container}>
-          <Text>Open up App.js to start working on your app!</Text>
-          <Text>Changes you make will automatically reload.</Text>
-          <Text>Shake your phone to open the developer menu.</Text>
-          {myIcon}
-          <Text>Shake your phone to open the developer menu.</Text>
-        </View>
-
+      <Provider store = {store}>
+        <AppNavigator />
+      </Provider>
     );
   }
 }
+
+
+const AppNavigator = createStackNavigator({
+  HomeScreen: {screen:Main},
+  SingleNoteScreen: {screen:SingleNote},
+  AddNoteScreen: {screen:NewNote}
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -28,10 +41,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  button:{
-    position:'absolute',
-    bottom:10,
-    right:10
   }
 });
